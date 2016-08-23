@@ -18,15 +18,7 @@ scalacOptions ++= Seq("-deprecation")  // to show the warnings
 //=====================================================================================================================
 // For gen-sublime's plugin
 import com.orrsella.sbtsublime.SublimePlugin.autoImport
-  .{sublimeExternalSourceDirectoryName, sublimeExternalSourceDirectoryParent, sublimeTransitive}
+  .{sublimeTransitive}
 
 sublimeTransitive := true
-
-/*sublimeExternalSourceDirectoryName := "ext-lib-src-for-sublime"
-
-sublimeExternalSourceDirectoryParent := new java.io.File(baseDirectory.value, "src/main/scala")
-
-// don't compile the downloaded source files of the lib
-(excludeFilter in unmanagedSources) :=(excludeFilter in unmanagedSources).value ||
-                                       new SimpleFilter(file => file.equals(sublimeExternalSourceDirectoryName.value))*/
 //=====================================================================================================================

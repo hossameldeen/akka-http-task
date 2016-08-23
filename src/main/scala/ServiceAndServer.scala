@@ -15,7 +15,7 @@ import OneJsonProtocolToRuleThemAll._
 
 case class Something(name: String)
 
-trait Server {
+trait Service {
 
   var things: List[Something] = Nil
 
@@ -40,7 +40,7 @@ trait Server {
 
 }
 
-object Server extends Server {
+object Server extends Service {
 
   def start() = {
     implicit val system: ActorSystem = ActorSystem("RequestsHandlerSystem")

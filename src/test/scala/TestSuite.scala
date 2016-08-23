@@ -5,7 +5,7 @@ import akka.http.scaladsl.testkit.ScalatestRouteTest
 
 import OneJsonProtocolToRuleThemAll._
 
-class TestSuite extends FunSuite with ScalatestRouteTest with Server {
+class TestSuite extends FunSuite with ScalatestRouteTest with Service {
 
 
   test("retrieve when nothing is added") {
