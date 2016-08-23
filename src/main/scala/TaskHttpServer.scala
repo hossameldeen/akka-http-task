@@ -1,12 +1,10 @@
 package io.github.hossameldeen.AkkaHttpTask
 
 import akka.actor.ActorSystem
-
 import akka.stream.ActorMaterializer
 
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.model._
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.Http.ServerBinding
 
@@ -25,17 +23,26 @@ object Server {
     implicit val materializer: ActorMaterializer = ActorMaterializer()
     implicit val execContext: ExecutionContext = system.dispatcher
 
+    var things: List[Something] = Nil
+
     val route: Route =
       path("add") {
-        get {
-          complete(Something("hamada"))
-        }
+        post {
+          entity(as[Something]) { something => {
+              things = things :+ something
+              complete("Thank you sir, the name " + something.name + " has been added!")
+            }
+          } ~
+          complete("Message body must contain a JSON object with exactly one member called 'name'.")
+        } ~
+        complete("There's a POST here, that's probably what you're looking for.")
       } ~
       path("retrieve") {
         get {
-          complete(List("ahmed", "mohamed", "hamada"))
+          complete(things)
         }
-      }
+      } ~
+      complete("Either GET /retrieve. Or POST /add with a message body {\"name\": <someName>}. Replace <someName>.")
 
     val bindingFuture: Future[ServerBinding] = Http().bindAndHandle(route, "localhost", 8080)
 
