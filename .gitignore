@@ -1,0 +1,5 @@
+.ensime_cache/
+project/
+target/
+.ensime
+akka-http-task.sublime-project
